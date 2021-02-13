@@ -1,0 +1,61 @@
+{
+	"name": "go-snippets-vscode",
+	"displayName": "Go Sniper",
+	"description": "Vscode Go Snippets",
+	"version": "1.0.4",
+	"publisher": "umutbasal",
+	"icon": "images/golang.png",
+	"repository": {
+		"url": "https://github.com/umutbasal/go-snippets-vscode"
+	},
+	"author": {
+		"name": "umutbasal"
+	},
+	"engines": {
+		"vscode": "^1.39.0"
+	},
+	"categories": [
+		"Snippets"
+	],
+	"activationEvents": [],
+	"main": "./out/extension.js",
+	"contributes": {
+		"languages": [
+			{
+				"id": "go",
+				"extensions": [
+					".go"
+				]
+			}
+		],
+		"snippets": [
+			{
+				"language": "go",
+				"path": "go.json"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run readme",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js",
+		"readme": "node ./src/updateReadme.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.39.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"typescript": "^3.3.1",
+		"tslint": "^5.12.1",
+		"vscode-test": "^1.2.0"
+	},
+	"dependencies": {
+		"fs": "0.0.1-security",
+		"path": "^0.12.7"
+	}
+}

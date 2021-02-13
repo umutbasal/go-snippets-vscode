@@ -1,0 +1,795 @@
+{
+  ": \"v := value\"": {
+    "prefix": ":",
+    "body": [
+      "${1} := ${0}",
+      ""
+    ],
+    "description": ": \"v := value\""
+  },
+  "anon \"fn := func() { ... }\"": {
+    "prefix": "anon",
+    "body": [
+      "${1:fn} := func() {",
+      "    ${2}",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "anon \"fn := func() { ... }\""
+  },
+  "ap \"append(slice, value)\"": {
+    "prefix": "ap",
+    "body": [
+      "append(${1:slice}, ${0:value})",
+      ""
+    ],
+    "description": "ap \"append(slice, value)\""
+  },
+  "ap= \"a = append(a, value)\"": {
+    "prefix": "ap",
+    "body": [
+      "${1:slice} = append($1, ${0:value})",
+      ""
+    ],
+    "description": "ap= \"a = append(a, value)\""
+  },
+  "br \"break\"": {
+    "prefix": "br",
+    "body": [
+      "break",
+      ""
+    ],
+    "description": "br \"break\""
+  },
+  "ch \"chan Type\"": {
+    "prefix": "ch",
+    "body": [
+      "chan ${0:int}",
+      ""
+    ],
+    "description": "ch \"chan Type\""
+  },
+  "case \"case ...:\"": {
+    "prefix": "case",
+    "body": [
+      "case ${1:value}:",
+      "${0}",
+      ""
+    ],
+    "description": "case \"case ...:\""
+  },
+  "con \"const XXX Type = ...\"": {
+    "prefix": "con",
+    "body": [
+      "const ${1:NAME} ${2:Type} = ${0:0}",
+      ""
+    ],
+    "description": "con \"const XXX Type = ...\""
+  },
+  "cons \"const ( ... )\"": {
+    "prefix": "cons",
+    "body": [
+      "const (",
+      "    ${1:NAME} ${2:Type} = ${3:value}",
+      "    ${0}",
+      ")",
+      ""
+    ],
+    "description": "cons \"const ( ... )\""
+  },
+  "iota \"const ( ... = iota )\"": {
+    "prefix": "iota",
+    "body": [
+      "const (",
+      "    ${1:NAME} ${2:Type} = iota",
+      "    ${0}",
+      ")",
+      ""
+    ],
+    "description": "iota \"const ( ... = iota )\""
+  },
+  "cn \"continue\"": {
+    "prefix": "cn",
+    "body": [
+      "continue",
+      ""
+    ],
+    "description": "cn \"continue\""
+  },
+  "default \"default: ...\"": {
+    "prefix": "default",
+    "body": [
+      "default:",
+      "${0}",
+      ""
+    ],
+    "description": "default \"default: ...\""
+  },
+  "df \"defer someFunction()\"": {
+    "prefix": "df",
+    "body": [
+      "defer ${1:func}(${2})",
+      "${0}",
+      ""
+    ],
+    "description": "df \"defer someFunction()\""
+  },
+  "def \"defer func() { ... }\"": {
+    "prefix": "def",
+    "body": [
+      "defer func() {",
+      "    ${0}",
+      "}()",
+      ""
+    ],
+    "description": "def \"defer func() { ... }\""
+  },
+  "defr": {
+    "prefix": "defr",
+    "body": [
+      "defer func() {",
+      "        if err := recover(); err != nil {",
+      "        \t${0}",
+      "    }",
+      "}()",
+      ""
+    ],
+    "description": "defr"
+  },
+  "gpl": {
+    "prefix": "gpl",
+    "body": [
+      "/*",
+      "* This program is free software; you can redistribute it and/or modify",
+      "* it under the terms of the GNU General Public License as published by",
+      "* the Free Software Foundation; either version 2 of the License, or",
+      "* (at your option) any later version.",
+      "*",
+      "* This program is distributed in the hope that it will be useful,",
+      "* but WITHOUT ANY WARRANTY; without even the implied warranty of",
+      "* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
+      "* GNU General Public License for more details.",
+      "*",
+      "* You should have received a copy of the GNU General Public License",
+      "* along with this program; if not, see <http://www.gnu.org/licenses/>.",
+      "*",
+      "* Copyright (C) ${1:Author}, `!v strftime(\"%Y\")`",
+      "*/",
+      "${0}",
+      ""
+    ],
+    "description": "gpl"
+  },
+  "import \"import ( ... )\"": {
+    "prefix": "import",
+    "body": [
+      "import (",
+      "    \"${1:package}\"",
+      ")",
+      ""
+    ],
+    "description": "import \"import ( ... )\""
+  },
+  "interface \"interface I { ... }\"": {
+    "prefix": "interface",
+    "body": [
+      "type ${1:Interface} interface {",
+      "    ${2:/* TODO: add methods */}",
+      "}",
+      ""
+    ],
+    "description": "interface \"interface I { ... }\""
+  },
+  "if \"if ... { ... }\"": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition} {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "if \"if ... { ... }\""
+  },
+  "else": {
+    "prefix": "else",
+    "body": [
+      "else {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "else"
+  },
+  "ife \"If with inline error\"": {
+    "prefix": "ife",
+    "body": [
+      "if err := ${1:condition}; err != nil {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "ife \"If with inline error\""
+  },
+  "ew \"errors.Wrap\"": {
+    "prefix": "ew",
+    "body": [
+      "errors.Wrap(${1:err}, \"${2:message}\")",
+      ""
+    ],
+    "description": "ew \"errors.Wrap\""
+  },
+  "ewf \"errors.Wrapf\"": {
+    "prefix": "ewf",
+    "body": [
+      "errors.Wrapf(${1:err}, \"${2:message %v}\", ${3:args...})",
+      ""
+    ],
+    "description": "ewf \"errors.Wrapf\""
+  },
+  "errn \"Error return\" !b": {
+    "prefix": "errn",
+    "body": [
+      "if err != nil {",
+      "    return err",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errn \"Error return\" !b"
+  },
+  "errnw \"Error return wrap\" !b": {
+    "prefix": "errnw",
+    "body": [
+      "if err != nil {",
+      "    return errors.Wrap(err, \"${1:message}\")",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errnw \"Error return wrap\" !b"
+  },
+  "errnwf \"Error return wrapf\" !b": {
+    "prefix": "errnwf",
+    "body": [
+      "if err != nil {",
+      "    return errors.Wrapf(err, \"${1:message %v}\", ${2:args...})",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errnwf \"Error return wrapf\" !b"
+  },
+  "errl \"Error with log.Fatal(err)\" !b": {
+    "prefix": "errl",
+    "body": [
+      "if err != nil {",
+      "    log.Fatal(err)",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errl \"Error with log.Fatal(err)\" !b"
+  },
+  "errn, \"Error return with two return values\" !b": {
+    "prefix": "errn,",
+    "body": [
+      "if err != nil {",
+      "    return ${1:nil}, ${2:err}",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errn, \"Error return with two return values\" !b"
+  },
+  "errn,w \"Error return wrap with two return values\" !b": {
+    "prefix": "errn,w",
+    "body": [
+      "if err != nil {",
+      "    return nil, errors.Wrap(err, \"${1:message}\")",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errn,w \"Error return wrap with two return values\" !b"
+  },
+  "errn,wf \"Error return wrapf with two return values\" !b": {
+    "prefix": "errn,wf",
+    "body": [
+      "if err != nil {",
+      "    return nil, errors.Wrapf(err, \"${1:message %v}\", ${2:args...})",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errn,wf \"Error return wrapf with two return values\" !b"
+  },
+  "errp \"Error panic\" !b": {
+    "prefix": "errp",
+    "body": [
+      "if err != nil {",
+      "    panic(${1})",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errp \"Error panic\" !b"
+  },
+  "errt \"Error test fatal \" !b": {
+    "prefix": "errt",
+    "body": [
+      "if err != nil {",
+      "    t.Fatal(err)",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errt \"Error test fatal \" !b"
+  },
+  "errh \"Error handle and return\" !b": {
+    "prefix": "errh",
+    "body": [
+      "if err != nil {",
+      "    ${1}",
+      "    return",
+      "}",
+      "${0}",
+      ""
+    ],
+    "description": "errh \"Error handle and return\" !b"
+  },
+  "json \"\\`json:key\\`\"": {
+    "prefix": "json",
+    "body": [
+      "\\`json:\"${1:`!v  go#util#snippetcase(matchstr(getline(\".\"), '\\w\\+'))`}\"\\`",
+      ""
+    ],
+    "description": "json \"\\`json:key\\`\""
+  },
+  "yaml \"\\`yaml:key\\`\"": {
+    "prefix": "yaml",
+    "body": [
+      "\\`yaml:\"${1:`!v  go#util#snippetcase(matchstr(getline(\".\"), '\\w\\+'))`}\"\\`",
+      ""
+    ],
+    "description": "yaml \"\\`yaml:key\\`\""
+  },
+  "ft \"fallthrough\"": {
+    "prefix": "ft",
+    "body": [
+      "fallthrough",
+      ""
+    ],
+    "description": "ft \"fallthrough\""
+  },
+  "for \"for ... { ... }\"": {
+    "prefix": "for",
+    "body": [
+      "for ${1} {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "for \"for ... { ... }\""
+  },
+  "fori \"for 0..N-1 { ... }\"": {
+    "prefix": "fori",
+    "body": [
+      "for ${1:i} := 0; $1 < ${2:N}; $1++ {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "fori \"for 0..N-1 { ... }\""
+  },
+  "forr \"for k, v := range items { ... }\"": {
+    "prefix": "forr",
+    "body": [
+      "for ${2:k}, ${3:v} := range ${1} {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "forr \"for k, v := range items { ... }\""
+  },
+  "forsel \"for select\"": {
+    "prefix": "forsel",
+    "body": [
+      "for {",
+      "    select {",
+      "        \tcase ${2:${1:result} := }<- ${3:channel}:",
+      "        \t\t${0}",
+      "    }",
+      "}",
+      ""
+    ],
+    "description": "forsel \"for select\""
+  },
+  "selc \"select case\" !b": {
+    "prefix": "selc",
+    "body": [
+      "case ${1:${2:var} := }<-${3:channel}:",
+      "  ${0}",
+      ""
+    ],
+    "description": "selc \"select case\" !b"
+  },
+  "func \"func Function(...) [error] { ... }\"": {
+    "prefix": "func",
+    "body": [
+      "func ${1:name}(${2:params}) (${3}) {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "func \"func Function(...) [error] { ... }\""
+  },
+  "ff \"fmt.Printf(...)\"": {
+    "prefix": "ff",
+    "body": [
+      "fmt.Printf(\"$1 = %+v\\n\", ${1})",
+      ""
+    ],
+    "description": "ff \"fmt.Printf(...)\""
+  },
+  "ffh \"fmt.Printf(#...) hash\"": {
+    "prefix": "ffh",
+    "body": [
+      "fmt.Printf(\"$1 = %#v\\n\", ${1})",
+      ""
+    ],
+    "description": "ffh \"fmt.Printf(#...) hash\""
+  },
+  "fn \"fmt.Println(...)\"": {
+    "prefix": "fn",
+    "body": [
+      "fmt.Println(\"${1}\")",
+      ""
+    ],
+    "description": "fn \"fmt.Println(...)\""
+  },
+  "fe \"fmt.Errorf(...)\"": {
+    "prefix": "fe",
+    "body": [
+      "fmt.Errorf(\"${1}\")",
+      ""
+    ],
+    "description": "fe \"fmt.Errorf(...)\""
+  },
+  "few \"fmt.Errorf(%w, err)\"": {
+    "prefix": "few",
+    "body": [
+      "fmt.Errorf(\"${1:message}: %w\", ${2:${VISUAL:err}})",
+      ""
+    ],
+    "description": "few \"fmt.Errorf(%w, err)\""
+  },
+  "errnfw \"Error return fmt.Errorf(%w, err)\" !b": {
+    "prefix": "errnfw",
+    "body": [
+      "if ${1:${VISUAL:err}} != nil {",
+      "    return fmt.Errorf(\"${2:message}: %w\", $1)",
+      "}",
+      ""
+    ],
+    "description": "errnfw \"Error return fmt.Errorf(%w, err)\" !b"
+  },
+  "lf \"log.Printf(...)\"": {
+    "prefix": "lf",
+    "body": [
+      "log.Printf(\"${1} = %+v\\n\", $1)",
+      ""
+    ],
+    "description": "lf \"log.Printf(...)\""
+  },
+  "ln \"log.Println(...)\"": {
+    "prefix": "ln",
+    "body": [
+      "log.Println(\"${1}\")",
+      ""
+    ],
+    "description": "ln \"log.Println(...)\""
+  },
+  "make \"make(Type, size)\"": {
+    "prefix": "make",
+    "body": [
+      "make(${1:[]string}, ${2:0})${0}",
+      ""
+    ],
+    "description": "make \"make(Type, size)\""
+  },
+  "map \"map[Type]Type\"": {
+    "prefix": "map",
+    "body": [
+      "map[${1:string}]${0:int}",
+      ""
+    ],
+    "description": "map \"map[Type]Type\""
+  },
+  "main \"func main() { ... }\"": {
+    "prefix": "main",
+    "body": [
+      "func main() {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "main \"func main() { ... }\""
+  },
+  "meth \"func (self Type) Method(...) [error] { ... }\"": {
+    "prefix": "meth",
+    "body": [
+      "func (${1:receiver} ${2:type}) ${3:name}(${4:params}) (${5}) {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "meth \"func (self Type) Method(...) [error] { ... }\""
+  },
+  "ok \"if !ok { ... }\"": {
+    "prefix": "ok",
+    "body": [
+      "if !ok {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "ok \"if !ok { ... }\""
+  },
+  "package \"package ...\"": {
+    "prefix": "package",
+    "body": [
+      "// Package $1 provides ${2:...}",
+      "package ${1:main}",
+      "${0}",
+      ""
+    ],
+    "description": "package \"package ...\""
+  },
+  "pn \"panic()\"": {
+    "prefix": "pn",
+    "body": [
+      "panic(\"${0:msg}\")",
+      ""
+    ],
+    "description": "pn \"panic()\""
+  },
+  "rt \"return\"": {
+    "prefix": "rt",
+    "body": [
+      "return ${0}",
+      ""
+    ],
+    "description": "rt \"return\""
+  },
+  "select \"select { case a := <-chan: ... }\"": {
+    "prefix": "select",
+    "body": [
+      "select {",
+      "    case ${1:v1} := <-${2:chan1}",
+      "        ${0}",
+      "}",
+      ""
+    ],
+    "description": "select \"select { case a := <-chan: ... }\""
+  },
+  "st \"type T struct { ... }\"": {
+    "prefix": "st",
+    "body": [
+      "type ${1:Type} struct {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "st \"type T struct { ... }\""
+  },
+  "switch \"switch x { ... }\"": {
+    "prefix": "switch",
+    "body": [
+      "switch ${1:var} {",
+      "    case ${2:value1}:",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "switch \"switch x { ... }\""
+  },
+  "tswitch \"type switch x { ... }\"": {
+    "prefix": "tswitch",
+    "body": [
+      "switch ${2:$1 := }${1:v}.(type) {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "tswitch \"type switch x { ... }\""
+  },
+  "sp \"fmt.Sprintf(...)\"": {
+    "prefix": "sp",
+    "body": [
+      "fmt.Sprintf(\"%${1:s}\", ${2:var})",
+      ""
+    ],
+    "description": "sp \"fmt.Sprintf(...)\""
+  },
+  "go \"go someFunc(...)\"": {
+    "prefix": "go",
+    "body": [
+      "go ${1:funcName}(${0})",
+      ""
+    ],
+    "description": "go \"go someFunc(...)\""
+  },
+  "gof \"go func() { ... }()\"": {
+    "prefix": "gof",
+    "body": [
+      "go func() {",
+      "    ${1}",
+      "}()",
+      "${0}",
+      ""
+    ],
+    "description": "gof \"go func() { ... }()\""
+  },
+  "test \"func TestXYZ(t *testing.T) { ... }\"": {
+    "prefix": "test",
+    "body": [
+      "func Test${1:Function}(t *testing.T) {",
+      "    ${0}",
+      "}",
+      ""
+    ],
+    "description": "test \"func TestXYZ(t *testing.T) { ... }\""
+  },
+  "tt": {
+    "prefix": "tt",
+    "body": [
+      "var tests = []struct {",
+      "    name string",
+      "    expected string",
+      "    given string",
+      "}{",
+      "    {\"${1}\", \"${2}\", \"${3}\",},",
+      "}",
+      "for _, tt := range tests {",
+      "    tt := tt",
+      "    t.Run(tt.name, func(t *testing.T){",
+      "        \tactual := tt.given",
+      "        \tif actual != tt.expected {",
+      "        \t\t\tt.Errorf(\"$0(%s): expected %s, actual %s\", tt.given, tt.expected, actual)",
+      "        \t}",
+      "",
+      "    })",
+      "}",
+      "",
+      ""
+    ],
+    "description": "tt"
+  },
+  "hf \"http.HandlerFunc\"": {
+    "prefix": "hf",
+    "body": [
+      "func ${1:handler}(w http.ResponseWriter, r *http.Request) {",
+      "    ${0:fmt.Fprintf(w, \"hello world\")}",
+      "}",
+      ""
+    ],
+    "description": "hf \"http.HandlerFunc\""
+  },
+  "hhf \"mux.HandleFunc\" !b": {
+    "prefix": "hhf",
+    "body": [
+      "${1:http}.HandleFunc(\"${2:/}\", func(w http.ResponseWriter, r *http.Request) {",
+      "    ${0:fmt.Fprintf(w, \"hello world\")}",
+      "})",
+      ""
+    ],
+    "description": "hhf \"mux.HandleFunc\" !b"
+  },
+  "tsrv \"httptest.NewServer\"": {
+    "prefix": "tsrv",
+    "body": [
+      "ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {",
+      "    fmt.Fprintln(w, ${1:`response`})",
+      "}))",
+      "defer ts.Close()",
+      "",
+      "${0:someUrl} = ts.URL",
+      ""
+    ],
+    "description": "tsrv \"httptest.NewServer\""
+  },
+  "ter \"if err != nil { t.Errorf(...) }\"": {
+    "prefix": "ter",
+    "body": [
+      "if err != nil {",
+      "    t.Errorf(\"${0:message}\")",
+      "}",
+      ""
+    ],
+    "description": "ter \"if err != nil { t.Errorf(...) }\""
+  },
+  "terf \"if err != nil { t.Fatalf(...) }\"": {
+    "prefix": "terf",
+    "body": [
+      "if err != nil {",
+      "    t.Fatalf(\"${0:message}\")",
+      "}",
+      ""
+    ],
+    "description": "terf \"if err != nil { t.Fatalf(...) }\""
+  },
+  "example \"func ExampleXYZ() { ... }\"": {
+    "prefix": "example",
+    "body": [
+      "func Example${1:Method}() {",
+      "    ${0}",
+      "    // Output:",
+      "}",
+      ""
+    ],
+    "description": "example \"func ExampleXYZ() { ... }\""
+  },
+  "benchmark \"func BenchmarkXYZ(b *testing.B) { ... }\"": {
+    "prefix": "benchmark",
+    "body": [
+      "func Benchmark${1:Method}(b *testing.B) {",
+      "    for i := 0; i < b.N; i++ {",
+      "        \t${0}",
+      "    }",
+      "}",
+      ""
+    ],
+    "description": "benchmark \"func BenchmarkXYZ(b *testing.B) { ... }\""
+  },
+  "var \"var x Type [= ...]\"": {
+    "prefix": "var",
+    "body": [
+      "var ${1:x} ${2:Type}${3: = ${0:value}}",
+      ""
+    ],
+    "description": "var \"var x Type [= ...]\""
+  },
+  "vars \"var ( ... )\"": {
+    "prefix": "vars",
+    "body": [
+      "var (",
+      "    ${1:x} ${2:Type}${3: = ${0:value}}",
+      ")",
+      ""
+    ],
+    "description": "vars \"var ( ... )\""
+  },
+  "eq \"equals: test two identifiers with DeepEqual\"": {
+    "prefix": "eq",
+    "body": [
+      "if !reflect.DeepEqual(${1:expected}, ${2:actual}) {",
+      "    _, file, line, _ := runtime.Caller(0)",
+      "    fmt.Printf(\"%s:%d:\\n\\n\\texp: %#v\\n\\n\\tgot: %#v\\n\\n\", filepath.Base(file), line, $1, $2)",
+      "    t.FailNow()",
+      "}",
+      " "
+    ],
+    "description": "eq \"equals: test two identifiers with DeepEqual\""
+  },
+  "ifae if actual != expected": {
+    "prefix": "ifae",
+    "body": [
+      "if ${1:actual} != ${2:expected} {",
+      "    t.Errorf(\"$1 %v, $2 %v\", $1, $2)",
+      "}",
+          ""
+    ],
+    "description": "If actual expected"
+  },
+  "tr t.Run(\"...": {
+    "prefix": "tr",
+    "body": [
+      "t.Run(\"$1\", func(t *testing.T){",
+      "    $0",
+      "})",
+          ""
+    ],
+    "description": "Test case t.Run"
+  }
+}
